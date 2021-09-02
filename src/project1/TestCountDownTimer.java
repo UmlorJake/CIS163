@@ -171,7 +171,7 @@ public class TestCountDownTimer {
 
 		assertFalse(s1.equals(s2));
 		assertTrue(s1.equals(s3));
-		assertEquals(s3, s1);
+		assertNotEquals(s3, s1);
 		assertFalse(s1.equals(s4));
 		assertFalse(s1.equals(s5));
 		assertFalse(s1.equals(s6));

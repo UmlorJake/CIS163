@@ -124,11 +124,15 @@ public class CountDownTimer {
 	}
 
 	public void sub(int seconds) {
-		this.seconds -= seconds;
+		this.seconds -= seconds % 60;
+		this.minutes -= (seconds / 60) % 60;
+		this.hours -= (seconds / 60) / 60;
 	}
 
 	public void add(int seconds) {
-		this.seconds += seconds;
+		this.seconds += seconds % 60;
+		this.minutes += (seconds / 60) % 60;
+		this.hours += (seconds / 60) / 60;
 	}
 
 	public void add(CountDownTimer other) {
