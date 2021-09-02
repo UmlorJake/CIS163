@@ -19,7 +19,7 @@ public class CountDownTimer {
 		if (hours > -1) {
 			this.hours = hours;
 		} else {
-			throw new IllegalArgumentException("Hours cannot be negetive");
+			throw new IllegalArgumentException("Hours cannot be negative");
 		}
 
 		if (minutes > -1) {
