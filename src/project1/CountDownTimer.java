@@ -81,18 +81,30 @@ public class CountDownTimer {
 			this.seconds = Integer.parseInt(startTimeSplit[2]);
 		}
 		else {
-			this.hours = 0;
-			this.minutes = 0;
-			this.seconds = 0;
+			throw new IllegalArgumentException("Cannot assign " + startTime + " as a starttime");
 		}
 	}
 
 	public boolean equals(CountDownTimer other) {
-		return this.hours == other.hours && this.minutes == other.minutes && this.seconds == other.seconds;
+		if (other == null){
+			throw new IllegalArgumentException("CountDownTimer cannot equal null");
+		}
+		else if (other instanceof CountDownTimer){
+			if(this.hours == other.hours &&
+					this.minutes == other.minutes &&
+					this.seconds == other.seconds) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		} else {
+			return false;
+		}
 	}
 
 	public static boolean equals (CountDownTimer t1, CountDownTimer t2) {
-		return t1.hours == t2.hours && t1.minutes == t2.minutes && t1.seconds == t2.seconds;
+		return t1.equals(t2);
 	}
 
 	public int compareTo(CountDownTimer other) {
