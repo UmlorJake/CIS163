@@ -9,6 +9,7 @@ public class CountDownTimer {
 	private int minutes;
 	private int seconds;
 
+	private static boolean suspend = false;
 
 	public CountDownTimer() {
 		hours = 0;
@@ -66,6 +67,9 @@ public class CountDownTimer {
 
 	public CountDownTimer(String startTime) {
 		int startTimeLen = startTime.length();
+		if (startTimeLen > 8){
+			throw new IllegalArgumentException();
+		}
 		if (startTimeLen <= 2) {
 			this.seconds = Integer.parseInt(startTime);
 		}
@@ -88,15 +92,15 @@ public class CountDownTimer {
 		}
 	}
 
-	public boolean equals(CountDownTimer other) {
+	public boolean equals(Object other) {
 		boolean rtn = false;
 		if (other == null){
-			rtn = false;
+			throw new IllegalArgumentException();
 		}
 		else if (other instanceof CountDownTimer){
-			if(this.hours == other.hours &&
-				this.minutes == other.minutes &&
-				this.seconds == other.seconds) {
+			if(this.hours == ((CountDownTimer) other).hours &&
+					this.minutes == ((CountDownTimer) other).minutes &&
+					this.seconds == ((CountDownTimer) other).seconds) {
 				rtn = true;
 			}
 			else {
@@ -203,7 +207,7 @@ public class CountDownTimer {
 
 	public void save(String fileName){
 		if (fileName == null)
-			throw new IllegalArgumentException();
+		throw new IllegalArgumentException();
 		PrintWriter out = null;
 		try {
 			out = new PrintWriter (new BufferedWriter(new FileWriter(fileName)));
@@ -235,5 +239,15 @@ public class CountDownTimer {
 		finally {
 			scanner.close();
 		}
+	}
+
+	//turns on and off all stopWatch object
+	public static void setSuspend(boolean suspend) {
+		CountDownTimer.suspend = suspend;
+	}
+
+	//returns suspend
+	public static boolean isSuspended() {
+		return suspend;
 	}
 }
