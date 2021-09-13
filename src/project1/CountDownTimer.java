@@ -54,6 +54,9 @@ public class CountDownTimer {
 	}
 
 	public CountDownTimer(int seconds) {
+		if (seconds > 59 || seconds < 0){
+			throw new IllegalArgumentException();
+		}
 		this.seconds = seconds;
 		hours = 0;
 		minutes = 0;
@@ -199,6 +202,10 @@ public class CountDownTimer {
 	}
 
 	public void add(CountDownTimer other) {
+		if (other ==  null){
+			throw new IllegalArgumentException();
+		}
+
 		this.hours += other.hours;
 		this.minutes += other.minutes;
 		this.seconds += other.seconds;
@@ -248,7 +255,7 @@ public class CountDownTimer {
 
 	public void save(String fileName){
 		if (fileName == null)
-		throw new IllegalArgumentException();
+			throw new IllegalArgumentException();
 		PrintWriter out = null;
 		try {
 			out = new PrintWriter (new BufferedWriter(new FileWriter(fileName)));

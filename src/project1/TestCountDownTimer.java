@@ -276,4 +276,46 @@ public class TestCountDownTimer {
 		new CountDownTimer("1:32:1234");
 	}
 
+	@Test (expected = IllegalArgumentException.class) //JU
+	public void testConstructor5IllegalArguments1() {
+		new CountDownTimer(1200);
+	}
+
+	@Test (expected = IllegalArgumentException.class) //JU
+	public void testConstructor5IllegalArguments2() {
+		new CountDownTimer(-12);
+	}
+
+	@Test //JU
+	public void testIsSuspended() {
+
+		boolean test = false;
+		CountDownTimer.setSuspend(true);
+		test = CountDownTimer.isSuspended();
+
+		assertTrue(test == true);
+		CountDownTimer.setSuspend(false);
+	}
+
+	@Test //JU
+	public void testSetters() {
+		CountDownTimer s = new CountDownTimer(0,0,0);
+		s.setSeconds(30);
+		s.setMinutes(29);
+		s.setHours(3);
+
+		assertEquals (s.toString(),"3:29:30");
+	}
+
+	@Test //JU
+	public void testNoMutateOnSuspend() {
+		CountDownTimer s1 = new CountDownTimer(5,59,30);
+		CountDownTimer s2 = new CountDownTimer(5,59,30);
+
+
+		CountDownTimer.setSuspend(true);
+		s1.add(1000);
+		assertTrue (s1.equals(s2));
+		CountDownTimer.setSuspend(false);
+	}
 }
