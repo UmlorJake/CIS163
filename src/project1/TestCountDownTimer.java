@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import com.sun.org.apache.bcel.internal.generic.ConstantPushInstruction;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -318,4 +319,62 @@ public class TestCountDownTimer {
 		assertTrue (s1.equals(s2));
 		CountDownTimer.setSuspend(false);
 	}
+
+	@Test (expected = IllegalArgumentException.class) //MVD
+	public void testConstructorStringLongMinutes() {
+		new CountDownTimer("1:3849:12");
+	}
+
+	@Test (expected = IllegalArgumentException.class) //JU
+	public void testConstructorValidInputsMinSecLarge(){
+		new CountDownTimer(70, 70);
+	}
+
+	@Test (expected = IllegalArgumentException.class) //JU
+	public void testConstructorValidInputsMinSecNeg(){
+		new CountDownTimer(-5, -5);
+	}
+
+	@Test //JU
+	public void testConstructorMinSec(){
+		CountDownTimer c = new CountDownTimer(23, 35);
+
+		assertEquals(c.getHours(), 0);
+		assertEquals(c.getMinutes(), 23);
+		assertEquals(c.getSeconds(), 35);
+	}
+
+	@Test //JU
+	public void testConstructorSec(){
+		CountDownTimer c = new CountDownTimer(35);
+
+		assertEquals(c.getHours(), 0);
+		assertEquals(c.getMinutes(), 0);
+		assertEquals(c.getSeconds(), 35);
+	}
+
+	@Test (expected = IllegalArgumentException.class) //JU
+	public void testSaveNull() {
+		CountDownTimer s = new CountDownTimer();
+		s.save(null);
+	}
+
+	@Test (expected = NullPointerException.class) //JU
+	public void testLoadNull() {
+		CountDownTimer s = new CountDownTimer();
+		s.load(null);
+	}
+
+	@Test (expected = IllegalArgumentException.class) //JU
+	public void testConstructorStringNull() {
+		String s = null;
+		new CountDownTimer(s);
+	}
+	
+	@Test (expected = IllegalArgumentException.class) //JU
+	public void testCompareToNull(){
+		CountDownTimer c = new CountDownTimer();
+		c.compareTo(null);
+	}
+
 }
