@@ -262,7 +262,7 @@ public class TestCountDownTimer {
 	}
 
 	@Test (expected = IllegalArgumentException.class) //JU
-	public void testAdd2() {
+	public void testAddNull() {
 		CountDownTimer c = new CountDownTimer();
 		c.add(null);
 	}
@@ -375,6 +375,99 @@ public class TestCountDownTimer {
 	public void testCompareToNull(){
 		CountDownTimer c = new CountDownTimer();
 		c.compareTo(null);
+	}
+
+	@Test //JU
+	public void testEqualInstanceOf(){
+		CountDownTimer c = new CountDownTimer(4,5,8);
+		assertTrue(c instanceof CountDownTimer);
+	}
+
+	@Test (expected = IllegalArgumentException.class)//JU
+	public void testNotEqualInstanceOf(){
+		CountDownTimer c = new CountDownTimer(100,500,800);
+		assertFalse(c instanceof CountDownTimer);
+	}
+
+	@Test (expected = IllegalArgumentException.class) //JU
+	public void testSubNeg(){
+		CountDownTimer c = new CountDownTimer();
+		c.sub(-5);
+	}
+
+	@Test //JU
+	public void testSub(){
+		CountDownTimer c = new CountDownTimer(4 ,45,15);
+		c.sub(5);
+		assertEquals(c.getHours(), 4);
+		assertEquals(c.getMinutes(), 45);
+		assertEquals(c.getSeconds(), 10);
+	}
+
+	@Test //JU
+	public void testSubRollOverMin(){
+		CountDownTimer c = new CountDownTimer(4 ,41,15);
+		c.sub(25);
+		assertEquals(c.getHours(), 4);
+		assertEquals(c.getMinutes(), 40);
+		assertEquals(c.getSeconds(), 50);
+	}
+
+	@Test //JU
+	public void testSubRollOverHour(){
+		CountDownTimer c = new CountDownTimer(4 ,0,15);
+		c.sub(25);
+		assertEquals(c.getHours(), 3);
+		assertEquals(c.getMinutes(), 59);
+		assertEquals(c.getSeconds(), 50);
+	}
+
+	@Test (expected = IllegalArgumentException.class) //JU
+	public void testSubNull(){
+		CountDownTimer c = new CountDownTimer();
+		c.sub(null);
+	}
+
+	@Test (expected = IllegalArgumentException.class) //JU
+	public void testSetSecNeg(){
+		CountDownTimer c = new CountDownTimer();
+		c.setSeconds(-6);
+	}
+
+	@Test (expected = IllegalArgumentException.class) //JU
+	public void testSetMinNeg(){
+		CountDownTimer c = new CountDownTimer();
+		c.setMinutes(-6);
+	}
+
+	@Test (expected = IllegalArgumentException.class) //JU
+	public void testSetHoursNeg(){
+		CountDownTimer c = new CountDownTimer();
+		c.setHours(-6);
+	}
+
+	@Test (expected = IllegalArgumentException.class) //JU
+	public void testSetSecLarger(){
+		CountDownTimer c = new CountDownTimer();
+		c.setSeconds(600);
+	}
+
+	@Test (expected = IllegalArgumentException.class) //JU
+	public void testSetMinLarge(){
+		CountDownTimer c = new CountDownTimer();
+		c.setMinutes(600);
+	}
+
+	@Test //JU
+	public void testGetTotalTime(){
+		CountDownTimer c = new CountDownTimer(5, 23, 40);
+		assertEquals(c.getTotalTime(), 19420);
+	}
+
+	@Test (expected = IllegalArgumentException.class)//JU
+	public void testDecException(){
+		CountDownTimer c = new CountDownTimer(0,0,0);
+		c.dec();
 	}
 
 }
