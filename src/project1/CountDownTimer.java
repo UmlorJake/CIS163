@@ -1,7 +1,7 @@
 package Project1GIVE_TO_STUDENTS;
 
 /*****************************************************************
- CountDownTimer.
+ CountDownTimer
 
  @author Jake Umlor
  @version Fall 2021
@@ -170,8 +170,9 @@ public class CountDownTimer {
 	 CountDownTimer object.)
 
 	 @param other the other CountDownTimer
-	 @return 
-	 @throws
+	 @return rtn returns false
+	 @throws IllegalArgumentException when the other CountDownTimer is
+	 null and when other is not an instanceof CountDownTimer
 	 *****************************************************************/
 	public boolean equals(Object other) {
 		boolean rtn = false;
@@ -194,19 +195,35 @@ public class CountDownTimer {
 	}
 
 	/*****************************************************************
+	 A static method that returns true if CountDownTimer object t1 is
+	 exactly the same as CountDownTimer object t2 (i.e. mins =
+	 other.mins && secs = other.secs && …).
 
-	 @param
-	 @return
-	 @throws
+	 @param t1 a CountDownTimer
+	 @param t2 a CountDownTimer
+	 @throws IllegalArgumentException when either t1 or t2 are null
 	 *****************************************************************/
 	public static boolean equals (CountDownTimer t1, CountDownTimer
 			t2) {
+		if(t1 == null || t2 == null){
+			throw new IllegalArgumentException();
+		}
 		if (t1.equals(t2)){
 			return true;
 		}
 		return false;
 	}
 
+	/*****************************************************************
+	 A method that returns 1 if “this” CountDownTimer object is
+	 greater than the other CountDownTimer object; returns -1 if
+	 “this” CountDownTimer object is less than the other
+	 CountDownTimer; or returns 0 if “this” CountDownTimer object is
+	 equal to the other CountDownTimer object.
+
+	 @param other the other CountDownTimer
+	 @throws IllegalArgumentException when other is null
+	 *****************************************************************/
 	//add test case
 	public int compareTo(CountDownTimer other) {
 		if (other == null) {
@@ -225,10 +242,13 @@ public class CountDownTimer {
 	}
 
 	/*****************************************************************
+	 A method that returns 1 if  CountDownTimer object t1 is greater
+	 than CountDownTimer object t2; returns -1 if the CountDownTimer
+	 object t1 is less than CountDownTimer object t2;  returns 0 if
+	 the CountDownTimer object t1 is equal to CountDownTimer object t2.
 
-	 @param
-	 @return
-	 @throws
+	 @param t1 a CountDownTimer
+	 @param t2 a CountDownTimer
 	 *****************************************************************/
 	//add test case
 	public static int compareTo(CountDownTimer t1, CountDownTimer t2){
@@ -244,10 +264,12 @@ public class CountDownTimer {
 	}
 
 	/*****************************************************************
+	 A method that subtracts the given number of seconds from “this”
+	 CountDownTimer object.  You may assume the parameter “seconds” is
+	 positive.
 
-	 @param
-	 @return
-	 @throws
+	 @param seconds the seconds that are going to be subbed
+	 @throws IllegalArgumentException when seconds isn't a valid input
 	 *****************************************************************/
 	public void sub(int seconds) {
 		if (suspend == false) {
@@ -262,10 +284,11 @@ public class CountDownTimer {
 	}
 
 	/*****************************************************************
+	 A method that adds the number of seconds to “this” CountDownTimer
+	 object.  You may assume the parameter “seconds” is positive.
 
-	 @param
-	 @return
-	 @throws
+	 @param seconds the seconds you are going to add
+	 @throws IllegalArgumentException when seconds isn't a valid input
 	 *****************************************************************/
 	public void add(int seconds) {
 		if(suspend == false) {
@@ -280,10 +303,7 @@ public class CountDownTimer {
 	}
 
 	/*****************************************************************
-
-	 @param
-	 @return
-	 @throws
+	 A method that increments the “this” CountDownTimer by 1 second.
 	 *****************************************************************/
 	public void inc(){
 		if(suspend == false) {
@@ -302,10 +322,9 @@ public class CountDownTimer {
 	}
 
 	/*****************************************************************
+	 A method that decrements “this” CountDownTimer by 1 second.
 
-	 @param
-	 @return
-	 @throws
+	 @throws IllegalArgumentException when the variables are zero
 	 *****************************************************************/
 	public void dec() {
 		if(suspend == false) {
@@ -330,10 +349,11 @@ public class CountDownTimer {
 	}
 
 	/*****************************************************************
+	 A method that subtracts CountDownTimer other from the “this”
+	 CountDownTimer object.
 
-	 @param
-	 @return
-	 @throws
+	 @param other the other CountDownTimer
+	 @throws IllegalArgumentException when other is equal to null
 	 *****************************************************************/
 	public void sub(CountDownTimer other) {
 		if (other == null)
@@ -343,10 +363,11 @@ public class CountDownTimer {
 	}
 
 	/*****************************************************************
+	 A method that adds CountDownTimer other to “this” CountDownTimer
+	 object.
 
-	 @param
-	 @return
-	 @throws
+	 @param other the other CoutDownTimer
+	 @throws IllegalArgumentException when other is null
 	 *****************************************************************/
 	public void add(CountDownTimer other) {
 		if (other == null)
@@ -356,10 +377,13 @@ public class CountDownTimer {
 	}
 
 	/*****************************************************************
+	 A method that returns a string that represents the state of a
+	 CountDownTimer with the following format:  “1:06:01”.  Display the
+	 hours as is; minutes with 2 digits including a leading “0” if
+	 minutes < 10, and seconds with 2 digits again including a leading
+	 “0” if seconds < 10. Other examples: “21:32:00”, “0:00:00”.
 
-	 @param
-	 @return
-	 @throws
+	 @return fmStr the formated String
 	 *****************************************************************/
 	public String toString() {
 		String fmStr = hours + ":";
@@ -380,30 +404,28 @@ public class CountDownTimer {
 	}
 
 	/*****************************************************************
+	This method formats the CountDownTimer into all seconds
 
-	 @param
-	 @return
-	 @throws
+	 @return the CountDownTimer in seconds
 	 *****************************************************************/
 	public int getTotalTime() {
 		return (this.hours * 3600)+(this.minutes * 60)+this.seconds;
 	}
 
 	/*****************************************************************
+	This method gets the Hours
 
-	 @param
-	 @return
-	 @throws
+	 @return the hours
 	 *****************************************************************/
 	public int getHours() {
 		return hours;
 	}
 
 	/*****************************************************************
+	This method sets hours
 
-	 @param
-	 @return
-	 @throws
+	 @param hours the hours
+	 @throws IllegalArgumentException when hours is less than zero
 	 *****************************************************************/
 	public void setHours(int hours) {
 		if (hours < 0) {
@@ -414,21 +436,19 @@ public class CountDownTimer {
 	}
 
 	/*****************************************************************
+	 This method gets the minutes
 
-	 @param
-	 @return
-	 @throws
+	 @return the minutes
 	 *****************************************************************/
 	public int getMinutes() {
-
 		return minutes;
 	}
 
 	/*****************************************************************
+	This method sets the hours
 
-	 @param
-	 @return
-	 @throws
+	 @param minutes the minutes
+	 @throws IllegalArgumentException when minutes is an invalid input
 	 *****************************************************************/
 	public void setMinutes(int minutes) {
 		if (minutes > 59 || minutes < 0) {
@@ -439,20 +459,19 @@ public class CountDownTimer {
 	}
 
 	/*****************************************************************
+	This method gets the Seconds
 
-	 @param
-	 @return
-	 @throws
+	 @return the seconds
 	 *****************************************************************/
 	public int getSeconds() {
 		return seconds;
 	}
 
 	/*****************************************************************
+	This method sets the seconds
 
-	 @param
-	 @return
-	 @throws
+	 @param seconds the seconds
+	 @throws IllegalArgumentException when seconds is an invalid input
 	 *****************************************************************/
 	public void setSeconds(int seconds) {
 		if (seconds > 59 || seconds < 0) {
@@ -463,10 +482,13 @@ public class CountDownTimer {
 	}
 
 	/*****************************************************************
+	 A method that saves the “this” CountDownTimer to a file; use the
+	 parameter filename for the name of the file.
 
-	 @param
-	 @return
-	 @throws
+	 @param fileName the name of the file being saved
+	 @throws IllegalArgumentException if fileName is null
+	 @throws FileNotFoundException if the file is not found
+	 @throws IOException
 	 *****************************************************************/
 	public void save(String fileName){
 		if (fileName == null)
@@ -491,10 +513,14 @@ public class CountDownTimer {
 	}
 
 	/*****************************************************************
+	 A  method that loads the “this” CountDownTimer object from a file;
+	 use the parameter filename for the name of the file.
 
-	 @param
-	 @return
-	 @throws
+	 @param fileName the name of the file
+	 @throws NullPointerException if fileName is null or if the
+	 NumberFormatException is caught
+	 @throws NumberFormatException if the hours, minutes, and seconds
+	 are invalid inputs
 	 *****************************************************************/
 	public void load(String fileName){
 		if (fileName == null)
@@ -525,20 +551,20 @@ public class CountDownTimer {
 	}
 
 	/*****************************************************************
+	 A  method that loads the “this” CountDownTimer object from a file;
+	 use the parameter filename for the name of the file.
 
-	 @param
-	 @return
-	 @throws
+	 @param suspend if suspend is true or not
 	 *****************************************************************/
 	public static void setSuspend(boolean suspend) {
 		CountDownTimer.suspend = suspend;
 	}
 
 	/*****************************************************************
+	 A  method that loads the “this” CountDownTimer object from a file;
+	 use the parameter filename for the name of the file.
 
-	 @param
-	 @return
-	 @throws
+	 @return suspend
 	 *****************************************************************/
 	public static boolean isSuspended() {
 		return suspend;
